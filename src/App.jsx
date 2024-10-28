@@ -3,6 +3,7 @@ import './App.css'
 import { generateMnemonic } from 'bip39';
 import Badge from './components/Badge';
 import { SolanaWallet } from './components/SolanaWallet';
+import { EthWallet } from './components/EthWallet';
 function App() {
   const [mnemonic, setMnemonic] = useState("");
 
@@ -17,7 +18,10 @@ function App() {
         const mn = await generateMnemonic();
         setMnemonic(mn)
       }}>Create Seed Phrase</button>
-      {mnemonic != "" && <div><SolanaWallet mnemonic={mnemonic}/></div>}
+      {mnemonic != "" && <div>
+        <SolanaWallet mnemonic={mnemonic}/>
+        <EthWallet mnemonic={mnemonic}/>
+        </div>}
       
     </>
     

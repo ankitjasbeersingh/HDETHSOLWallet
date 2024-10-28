@@ -18,13 +18,17 @@ export function SolanaWallet({mnemonic}){
         const secret = nacl.sign.keyPair.fromSeed(derivedSeed).secretKey;
         const keypair = Keypair.fromSecretKey(secret);
         setCurrentIndex(currentIndex + 1);
-        setWalletKeys([...walletKeys,{secret:bs58.encode(secret),public:keypair.publicKey}])
+        setWalletKeys([...walletKeys,{private:bs58.encode(secret),public:keypair.publicKey}])
     }
-    return <div>
+    return <div className="mt-12">
+        <div className="border border-[light-grey] border-solid rounded-2xl">
+        <h1>Sol</h1>
         <button onClick={generateWallet}>Add SOL Wallet</button>
-        {walletKeys.map(w => <div key={w.secret}>
+        {walletKeys.map((w,index) => <div key={w.private} className="flex flex-col gap-8 px-8 py-4 rounded-2xl bg-slate-800 mt-4 text-left">
+            <p>Wallet {index+1}</p>
             <p>Public Key:{w.public.toBase58()}</p>
-            <p>Secret Key:{w.secret}</p>
+            <p>Secret Key:{w.private}</p>
         </div>)}
+        </div>
     </div>
 }
